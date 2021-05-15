@@ -9,7 +9,11 @@
     "clean": "learn clean",
     "start:all": "lerna run start --parallel --stream",
     "start:client": "lerna run start --scope=client --stream",
-    "start:server": "lerna run start --scope=server --stream"
+    "start:server": "lerna run start --scope=server --stream",
+    "dock:all": "lerna run docker:build --parallel --stream",
+    "dock:client": "lerna run docker:build --scope=client --stream",
+    "dock:server": "lerna run docker:build --scope=server --stream",
+    "push:docker": "lerna run docker:push --parallel --stream"
   },
   "devDependencies": {
     "lerna": "^4.0.0"

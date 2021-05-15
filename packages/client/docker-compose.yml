@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  todo-app-client:
+    image: registry.cn-chengdu.aliyuncs.com/yuefantutor/todo-app-client:latest
+    container_name: todo-app-client
+    restart: always
+    build: .
+    ports:
+      - 3000:80
+    networks:
+      - todo
+
+networks:
+  todo:
+    external: true
+    name: todo

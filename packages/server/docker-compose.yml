@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  todo-app-server:
+    image: registry.cn-chengdu.aliyuncs.com/yuefantutor/todo-app-server:latest
+    container_name: todo-app-server
+    restart: always
+    build: .
+    ports:
+      - 4000:4000
+    environment:
+      - DATABASE_HOST=192.168.2.28
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=admin
+      - DATABASE_SYNCHRONIZE=false
+      - DATABASE_LOGGING=true
+    networks:
+      - todo
+
+networks:
+  todo:
+    external: true
+    name: todo
