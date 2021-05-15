@@ -1,0 +1,17 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "boot": "lerna bootstrap",
+    "clean": "learn clean",
+    "start:all": "lerna run start --parallel --stream",
+    "start:client": "lerna run start --scope=client --stream",
+    "start:server": "lerna run start --scope=server --stream"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
