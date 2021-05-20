@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "boot": "lerna bootstrap",
-    "clean": "learn clean",
+    "clean": "lerna clean",
     "start:all": "lerna run start --parallel --stream",
     "start:client": "lerna run start --scope=client --stream",
     "start:server": "lerna run start --scope=server --stream",
