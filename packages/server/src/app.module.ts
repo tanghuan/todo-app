@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 
 import { User } from './entity/user.entity';
 
@@ -8,6 +10,9 @@ import { AppService } from './services/app.service';
 import { AuthService } from './services/auth.service';
 import { AppResolver } from './resolvers/app.resolver';
 import { AuthResolver } from './resolvers/auth.resolver';
+import { jwtConstants } from './constants';
+import { JwtStrategy } from './jwt.strategy';
+import { AuthController } from './controllers/auth.controller';
 
 @Module({
   imports: [
@@ -28,9 +33,19 @@ import { AuthResolver } from './resolvers/auth.resolver';
       playground: true,
       autoSchemaFile: true,
       sortSchema: true,
+      context: ({ req }) => ({
+        req,
+      }),
+    }),
+    PassportModule,
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: {
+        expiresIn: '60s',
+      },
     }),
   ],
-  controllers: [],
-  providers: [AppService, AuthService, AppResolver, AuthResolver],
+  controllers: [AuthController],
+  providers: [AppService, AuthService, AppResolver, AuthResolver, JwtStrategy],
 })
 export class AppModule {}

@@ -1,36 +1,78 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { hash, compare } from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
-import { RegisterUser } from '../register-user.args';
+import { TokenVo } from 'src/token.vo';
+import { RegisterUser } from '../args/register-user.args';
 import { User } from '../entity/user.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
+    private readonly jwtService: JwtService,
   ) {}
 
-  async login(): Promise<{
-    accessToken: string;
-    refreshToken: string;
-  }> {
-    return Promise.resolve({
-      accessToken: 'asdfasdfasdfasdfasdfasdf',
-      refreshToken: '1264767675657676767',
+  async login(args: RegisterUser): Promise<TokenVo> {
+    const { username, password } = args;
+
+    const entity = await this.userRepository.findOne({
+      where: {
+        username,
+      },
     });
+
+    if (!entity) {
+      throw new BadRequestException('Usernmae/Password error.');
+    }
+
+    const isMatch = compare(password, entity.password);
+    if (!isMatch) {
+      throw new BadRequestException('Usernmae/Password error.');
+    }
+
+    const accessToken = await this.jwtService.signAsync({
+      sub: entity.id,
+      username,
+    });
+
+    const refreshToken = await this.jwtService.signAsync(
+      {
+        sub: entity.id,
+      },
+      {
+        expiresIn: '600s',
+      },
+    );
+
+    const vo = new TokenVo();
+    vo.access_token = accessToken;
+    vo.refresh_token = refreshToken;
+    return vo;
   }
 
   async register(args: RegisterUser): Promise<string> {
-    console.log('args: ', args);
-
     const { username, password } = args;
 
-    const user = new User();
-    user.username = username;
-    user.password = password;
+    let entity = await this.userRepository.findOne({
+      where: {
+        username,
+      },
+    });
 
-    await this.userRepository.save(user);
+    if (entity) {
+      throw new BadRequestException('Username exist.');
+    }
+
+    entity = new User();
+    entity.username = username;
+
+    const hashPwd = await hash(password, 12);
+    entity.password = hashPwd;
+
+    await this.userRepository.save(entity);
     return 'OK';
   }
 }
