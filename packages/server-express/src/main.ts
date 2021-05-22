@@ -1,7 +1,8 @@
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import Container from "typedi";
-import { createConnection } from "typeorm";
+import { createConnection, useContainer } from "typeorm";
+import { Container as TypeDIContainer } from "typeorm-typedi-extensions";
 import { ApolloServer } from "apollo-server-express";
 import Express, { Request, Response, NextFunction } from "express";
 import cookieParser from "cookie-parser";
@@ -9,6 +10,8 @@ import cookieParser from "cookie-parser";
 import { User } from "./entity/user.entity";
 import { AppResolver } from "./resolvers/app.resolver";
 import { UserResolver } from "./resolvers/user.resolver";
+
+useContainer(TypeDIContainer);
 
 const bootstrap = async () => {
   // create connection

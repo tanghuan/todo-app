@@ -1,4 +1,5 @@
 import { Service } from "typedi";
+import { InjectRepository } from "typeorm-typedi-extensions";
 import { Repository, getRepository } from "typeorm";
 import { hash } from "bcrypt";
 import { CreateUserArgs } from "../args/create-user.args";
@@ -6,11 +7,10 @@ import { User } from "../entity/user.entity";
 
 @Service()
 export class UserService {
-  private readonly userRepository: Repository<User>;
-
-  constructor() {
-    this.userRepository = getRepository(User);
-  }
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>
+  ) {}
 
   async addUser(args: CreateUserArgs): Promise<User> {
     const { username, password } = args;
