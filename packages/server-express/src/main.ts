@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 
 import { User } from "./entity/user.entity";
 import { AppResolver } from "./resolvers/app.resolver";
+import { UserResolver } from "./resolvers/user.resolver";
 
 const bootstrap = async () => {
   // create connection
@@ -26,7 +27,7 @@ const bootstrap = async () => {
 
   // build schema
   const schema = await buildSchema({
-    resolvers: [AppResolver],
+    resolvers: [AppResolver, UserResolver],
     container: Container,
   });
 
