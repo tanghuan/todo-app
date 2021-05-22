@@ -21,7 +21,7 @@ export class AuthResolver {
   ): Promise<TokenVo> {
     const vo = await this.authService.login(args);
     req.res.cookie('jid', vo.refresh_token, {
-      maxAge: 600,
+      expires: new Date(Date.now() + 6000),
       path: '/refresh_token',
       httpOnly: true,
     });
