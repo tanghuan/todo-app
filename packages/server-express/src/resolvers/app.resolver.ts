@@ -1,6 +1,6 @@
-import { Service } from "typedi";
-import { Resolver, Query } from "type-graphql";
-import { AppService } from "../services/app.service";
+import { Service } from 'typedi';
+import { Resolver, Query } from 'type-graphql';
+import { AppService } from '../services/app.service';
 
 @Service()
 @Resolver()

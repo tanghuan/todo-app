@@ -1,8 +1,8 @@
-import { Resolver, Mutation, Args } from "type-graphql";
-import { Service } from "typedi";
-import { CreateUserArgs } from "../args/create-user.args";
-import { User } from "../entity/user.entity";
-import { UserService } from "../services/user.service";
+import { Resolver, Mutation, Args } from 'type-graphql';
+import { Service } from 'typedi';
+import { CreateUserArgs } from '../args/create-user.args';
+import { User } from '../entity/user.entity';
+import { UserService } from '../services/user.service';
 
 @Service()
 @Resolver()

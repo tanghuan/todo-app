@@ -1,5 +1,5 @@
-import { ArgsType, Field } from "type-graphql";
-import { IsNotEmpty, MinLength } from "class-validator";
+import { ArgsType, Field } from 'type-graphql';
+import { IsNotEmpty, MinLength } from 'class-validator';
 
 @ArgsType()
 export class CreateUserArgs {

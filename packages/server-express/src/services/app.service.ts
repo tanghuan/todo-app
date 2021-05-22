@@ -1,8 +1,8 @@
-import { Service } from "typedi";
+import { Service } from 'typedi';
 
 @Service()
 export class AppService {
   getHello(): string {
-    return "Hello TypeGraphql!";
+    return 'Hello TypeGraphql!';
   }
 }
