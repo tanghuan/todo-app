@@ -1,12 +1,9 @@
-import { Controller, Get, Req } from '@nestjs/common';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Request } from 'express';
+import { Controller, Get } from '@nestjs/common';
 
 @Controller()
 export class AuthController {
   @Get('/refresh_token')
-  refreshToken(@Req() req: Request): string {
-    console.log('req ======> ', req.cookies);
+  refreshToken(): string {
     return 'OK';
   }
 }

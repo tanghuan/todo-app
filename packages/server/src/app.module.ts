@@ -33,9 +33,10 @@ import { AuthController } from './controllers/auth.controller';
       playground: true,
       autoSchemaFile: true,
       sortSchema: true,
-      context: ({ req }) => ({
-        req,
-      }),
+
+      // 不设置 在 Resolver 中只能注入 req，如果设置了可以注入 req 和 res。
+      // 如果发现 graphql playground 里 cookie 写入不成功，在设置里将 "request.credentials": "omit", 改为 "request.credentials": "same-origin",
+      context: ({ req, res }) => ({ req, res }),
     }),
     PassportModule,
     JwtModule.register({
