@@ -13,6 +13,7 @@ import { AuthResolver } from './resolvers/auth.resolver';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
 import { AuthController } from './controllers/auth.controller';
+import { GithubStrategy } from './github.strategy';
 
 @Module({
   imports: [
@@ -47,6 +48,13 @@ import { AuthController } from './controllers/auth.controller';
     }),
   ],
   controllers: [AuthController],
-  providers: [AppService, AuthService, AppResolver, AuthResolver, JwtStrategy],
+  providers: [
+    AppService,
+    AuthService,
+    AppResolver,
+    AuthResolver,
+    JwtStrategy,
+    GithubStrategy,
+  ],
 })
 export class AppModule {}
