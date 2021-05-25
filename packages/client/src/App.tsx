@@ -2,13 +2,13 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Greeting from './components/Greeting';
-import Oauth from './Oauth';
+import GithubAuth from './components/AuthGithub';
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/auth/github/callback" component={Oauth} />
+        <Route path="/auth/github" component={GithubAuth} />
         <Route path="/">
           <div>
             Hello React!

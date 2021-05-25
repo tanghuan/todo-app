@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const Oauth: FC = () => {
+const AuthGithub: FC = () => {
   const location = useLocation();
   console.log('pathname:', location.pathname);
   console.log('search:', location.search);
@@ -10,4 +10,4 @@ const Oauth: FC = () => {
   return <div>login...</div>;
 };
 
-export default Oauth;
+export default AuthGithub;
