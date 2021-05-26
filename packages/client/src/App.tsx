@@ -3,18 +3,17 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Greeting from './components/Greeting';
 import GithubAuth from './components/AuthGithub';
+import Login from './pages/Login';
+import Main from './pages/Main';
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/auth/github" component={GithubAuth} />
+        <Route path="/login" component={Login} />
         <Route path="/">
-          <div>
-            Hello React!
-            <Greeting />
-            <a href="/api/auth/github">Github Login</a>
-          </div>
+          <Main />
         </Route>
       </Switch>
     </BrowserRouter>

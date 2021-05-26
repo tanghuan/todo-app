@@ -26,7 +26,7 @@ module.exports = {
     project: './tsconfig.json',
   },
   root: true,
-  ignorePatterns: ['.eslintrc.js', 'craco.config.js'],
+  ignorePatterns: ['.eslintrc.js', 'craco.config.js', 'src/generated'],
   rules: {
     'linebreak-style': 'off',
     'prettier/prettier': [
