@@ -1,5 +1,7 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards, Req } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Request } from 'express';
 
 @Controller()
 export class AuthController {
@@ -10,9 +12,20 @@ export class AuthController {
 
   @Get('/auth/github')
   @UseGuards(AuthGuard('github'))
-  github() {}
+  github(@Req() req: Request) {
+    console.log('github user', req.user);
+  }
 
   @Get('/auth/github/callback')
   @UseGuards(AuthGuard('github'))
-  githubCallback() {}
+  githubCallback(@Req() req: Request) {
+    console.log('githubCallback user', req.user);
+  }
+
+  @Get('/profile')
+  @UseGuards(AuthGuard('jwt'))
+  profile(@Req() req: Request) {
+    console.log('profile user', req.user);
+    return 'OK';
+  }
 }

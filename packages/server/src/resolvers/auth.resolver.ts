@@ -1,4 +1,6 @@
+import { UseGuards } from '@nestjs/common';
 import { Resolver, Mutation, Context, Args } from '@nestjs/graphql';
+import { AuthGuard } from '@nestjs/passport';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Request } from 'express';
 import { TokenVo } from 'src/token.vo';
@@ -19,6 +21,7 @@ export class AuthResolver {
     @Context('req') req: Request,
     @Args() args: RegisterUser,
   ): Promise<TokenVo> {
+    console.log('resolver login', req.user);
     const vo = await this.authService.login(args);
     req.res.cookie('jid', vo.refresh_token, {
       expires: new Date(Date.now() + 6000),
@@ -27,5 +30,11 @@ export class AuthResolver {
     });
     delete vo.refresh_token;
     return vo;
+  }
+
+  @Mutation(() => TokenVo)
+  @UseGuards(AuthGuard('github'))
+  async authGithub() {
+    console.log();
   }
 }
