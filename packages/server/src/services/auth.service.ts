@@ -53,6 +53,27 @@ export class AuthService {
     return vo;
   }
 
+  async github(user: any): Promise<TokenVo> {
+    const accessToken = await this.jwtService.signAsync({
+      // sub: entity.id,
+      username: user.username,
+    });
+
+    const refreshToken = await this.jwtService.signAsync(
+      {
+        username: user.username,
+      },
+      {
+        expiresIn: '600s',
+      },
+    );
+
+    const vo = new TokenVo();
+    vo.access_token = accessToken;
+    vo.refresh_token = refreshToken;
+    return vo;
+  }
+
   async register(args: RegisterUser): Promise<string> {
     const { username, password } = args;
 
