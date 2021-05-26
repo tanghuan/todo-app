@@ -16,12 +16,6 @@ export class AuthController {
     console.log('github user', req.user);
   }
 
-  @Get('/auth/github/callback')
-  @UseGuards(AuthGuard('github'))
-  githubCallback(@Req() req: Request) {
-    console.log('githubCallback user', req.user);
-  }
-
   @Get('/profile')
   @UseGuards(AuthGuard('jwt'))
   profile(@Req() req: Request) {
