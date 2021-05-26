@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Greeting from './components/Greeting';
 import GithubAuth from './components/AuthGithub';
 import Login from './pages/Login';
 import Main from './pages/Main';
