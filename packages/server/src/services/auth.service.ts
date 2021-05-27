@@ -18,6 +18,8 @@ export class AuthService {
   async login(args: RegisterUser): Promise<TokenVo> {
     const { username, password } = args;
 
+    console.log('args: ', args);
+
     const entity = await this.userRepository.findOne({
       where: {
         username,

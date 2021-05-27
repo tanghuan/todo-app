@@ -20,7 +20,8 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "docker:build": "docker-compose build",
-    "docker:push": "docker-compose push"
+    "docker:push": "docker-compose push",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",
@@ -37,6 +38,7 @@
     "class-validator": "^0.13.1",
     "graphql": "^15.5.0",
     "graphql-tools": "^7.0.5",
+    "lint-staged": "^11.0.0",
     "mongodb": "^3.6.6",
     "mongoose": "^5.12.9",
     "passport": "^0.4.1",

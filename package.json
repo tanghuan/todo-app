@@ -14,7 +14,8 @@
     "dock:client": "lerna run docker:build --scope=client --stream",
     "dock:server": "lerna run docker:build --scope=server --stream",
     "push:docker": "lerna run docker:push --parallel --stream",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint:fix": "lerna run --concurrency 1 --stream precommit --since HEAD --exclude-dependents"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
