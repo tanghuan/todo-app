@@ -10,11 +10,13 @@ import Box from '@material-ui/core/Box';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 
+import { IconButton } from '@material-ui/core';
 import { useLoginMutation } from '../generated/graphql';
 import { setToken, getToken } from '../token.storage';
 
@@ -46,6 +48,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 
   form: {
     width: '100%',
+  },
+
+  github: {
+    backgroundColor: theme.palette.text.primary,
   },
 }));
 
@@ -118,13 +124,8 @@ const Login: FC = () => {
         </Box>
       </form>
 
-      <Button
-        variant="contained"
-        color="secondary"
-        fullWidth
-        href="/api/auth/github"
-      >
-        Google Login
+      <Button startIcon={<GitHubIcon />} size="large" href="/api/auth/github">
+        Github
       </Button>
     </Container>
   );
