@@ -16,7 +16,6 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 
-import { IconButton } from '@material-ui/core';
 import { useLoginMutation } from '../generated/graphql';
 import { setToken, getToken } from '../token.storage';
 
