@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useLocation, useHistory } from 'react-router-dom';
 import { setToken, clearToken } from '../token.storage';
 
-const AuthGithub: FC = () => {
+const AuthGoogle: FC = () => {
   const location = useLocation();
   const history = useHistory();
   const [loading, setLoading] = useState(true);
@@ -16,7 +16,7 @@ const AuthGithub: FC = () => {
       try {
         setLoading(true);
         const res = await Axios({
-          url: `/api/auth/github${query}`,
+          url: `/api/auth/google${query}`,
           method: 'GET',
         });
         setLoading(false);
@@ -33,4 +33,4 @@ const AuthGithub: FC = () => {
   return <div>{loading && <CircularProgress />}</div>;
 };
 
-export default AuthGithub;
+export default AuthGoogle;

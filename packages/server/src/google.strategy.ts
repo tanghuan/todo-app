@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, Profile } from 'passport-github2';
+import { Strategy, Profile } from 'passport-google-oauth20';
 
 @Injectable()
-export class GithubStrategy extends PassportStrategy(Strategy) {
+export class GoogleStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
-      clientID: '95ef54d49e0ad1f69a82',
-      clientSecret: '87ecf52a64b188dc93a12ab476515d5041f9b8b1',
-      callbackURL: 'http://localhost:3000/auth/github',
-      scope: 'user:email',
+      clientID: 'clientID',
+      clientSecret: 'clientSecret',
+      callbackURL: 'http://localhost:3000/auth/google',
+      scope: ['profile', 'email'],
     });
   }
 
@@ -21,14 +21,18 @@ export class GithubStrategy extends PassportStrategy(Strategy) {
   ): Promise<void> {
     // console.log('github access_token:', accessToken);
     // console.log('github refreshToken:', refreshToken);
-    // console.log('github profile:', profile);
+    // console.log('google profile:', profile);
 
-    const { id, username, emails } = profile;
+    const {
+      id,
+      name: { familyName, givenName },
+      emails,
+    } = profile;
 
     const payload = {
       id,
       email: emails[0]?.value,
-      username,
+      username: `${familyName}${givenName}`,
     };
 
     done(null, payload);

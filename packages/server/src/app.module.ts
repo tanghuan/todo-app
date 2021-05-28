@@ -14,6 +14,7 @@ import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
 import { AuthController } from './controllers/auth.controller';
 import { GithubStrategy } from './github.strategy';
+import { GoogleStrategy } from './google.strategy';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { GithubStrategy } from './github.strategy';
     AuthResolver,
     JwtStrategy,
     GithubStrategy,
+    GoogleStrategy,
   ],
 })
 export class AppModule {}

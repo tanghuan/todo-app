@@ -21,7 +21,6 @@ export class AuthResolver {
     @Context('req') req: Request,
     @Args() args: RegisterUser,
   ): Promise<TokenVo> {
-    console.log('resolver login', req.user);
     const vo = await this.authService.login(args);
     req.res.cookie('jid', vo.refresh_token, {
       expires: new Date(Date.now() + 6000),

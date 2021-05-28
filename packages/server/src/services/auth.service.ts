@@ -56,8 +56,9 @@ export class AuthService {
   }
 
   async github(user: any): Promise<TokenVo> {
+    console.log(user);
     const accessToken = await this.jwtService.signAsync({
-      // sub: entity.id,
+      sub: user.id,
       username: user.username,
     });
 
@@ -69,6 +70,8 @@ export class AuthService {
         expiresIn: '600s',
       },
     );
+
+    console.log(accessToken, refreshToken);
 
     const vo = new TokenVo();
     vo.access_token = accessToken;

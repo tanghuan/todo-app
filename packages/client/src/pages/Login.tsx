@@ -75,11 +75,10 @@ const Login: FC = () => {
   });
 
   if (!loading && !error && data) {
-    setToken(data.login?.access_token);
-  }
-  console.log('token: ', getToken());
-  if (getToken()) {
-    history.push('/');
+    if (data.login?.access_token) {
+      setToken(data.login?.access_token);
+      history.push('/');
+    }
   }
 
   return (
@@ -125,6 +124,9 @@ const Login: FC = () => {
 
       <Button startIcon={<GitHubIcon />} size="large" href="/api/auth/github">
         Github
+      </Button>
+      <Button startIcon={<GitHubIcon />} size="large" href="/api/auth/google">
+        Google
       </Button>
     </Container>
   );

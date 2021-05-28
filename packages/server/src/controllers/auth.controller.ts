@@ -27,10 +27,24 @@ export class AuthController {
     return vo;
   }
 
-  @Get('/profile')
+  @Get('/auth/google')
+  @UseGuards(AuthGuard('google'))
+  async google(@Req() req: Request) {
+    console.log('google user', req.user);
+    const vo = await this.authService.github(req.user);
+    req.res.cookie('jid', vo.refresh_token, {
+      expires: new Date(Date.now() + 6000),
+      path: '/refresh_token',
+      httpOnly: true,
+    });
+    delete vo.refresh_token;
+    return vo;
+  }
+
+  @Get('/auth/profile')
   @UseGuards(AuthGuard('jwt'))
   profile(@Req() req: Request) {
     console.log('profile user', req.user);
-    return 'OK';
+    return req.user;
   }
 }
