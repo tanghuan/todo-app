@@ -17,7 +17,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 
 import { useLoginMutation } from '../generated/graphql';
-import { setToken, getToken } from '../token.storage';
+import { setToken } from '../token.storage';
 
 const validationSchema = yup.object({
   email: yup
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Login: FC = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [loginMutation, { data, loading, error }] = useLoginMutation();
+  const [loginMutation, { loading, error }] = useLoginMutation();
   const formik = useFormik({
     initialValues: {
       email: 'tang@gmail.com',
@@ -65,25 +65,24 @@ const Login: FC = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      await loginMutation({
+      const { data } = await loginMutation({
         variables: {
           username: values.email,
           password: values.password,
         },
       });
+      const accessToken = data?.login?.access_token;
+      if (accessToken) {
+        setToken(accessToken);
+        history.push('/');
+      }
     },
   });
-
-  if (!loading && !error && data) {
-    if (data.login?.access_token) {
-      setToken(data.login?.access_token);
-      history.push('/');
-    }
-  }
 
   return (
     <Container maxWidth="sm" className={classes.root}>
       {loading && <LinearProgress />}
+      {error?.message}
       <Avatar className={classes.icon}>
         <LockOutlinedIcon />
       </Avatar>

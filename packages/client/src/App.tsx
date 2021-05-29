@@ -13,6 +13,7 @@ const App: React.FC = () => {
         <Route path="/auth/github" component={AuthGithub} />
         <Route path="/auth/google" component={AuthGoogle} />
         <Route path="/login" component={Login} />
+        <Route path="/refresh_token">Refresh Token</Route>
         <Route path="/">
           <Main />
         </Route>

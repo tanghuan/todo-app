@@ -30,7 +30,7 @@ export class AuthService {
       throw new BadRequestException('Usernmae/Password error.');
     }
 
-    const isMatch = compare(password, entity.password);
+    const isMatch = await compare(password, entity.password);
     if (!isMatch) {
       throw new BadRequestException('Usernmae/Password error.');
     }
