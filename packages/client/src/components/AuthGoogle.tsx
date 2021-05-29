@@ -1,36 +1,48 @@
-import React, { FC, useState, useEffect } from 'react';
-import Axios from 'axios';
-
-import CircularProgress from '@material-ui/core/CircularProgress';
+import React, { FC, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import Axios from 'axios';
 import { setToken, clearToken } from '../token.storage';
 
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+}));
+
 const AuthGoogle: FC = () => {
+  const classes = useStyles();
+
   const location = useLocation();
   const history = useHistory();
-  const [loading, setLoading] = useState(true);
   const { search } = location;
 
   useEffect(() => {
     const handleCodeAuth = async (query: string) => {
       try {
-        setLoading(true);
         const res = await Axios({
           url: `/api/auth/google${query}`,
           method: 'GET',
         });
-        setLoading(false);
         setToken(res.data?.access_token);
         history.push('/');
       } catch (err) {
-        setLoading(false);
         clearToken();
         history.push('/login');
       }
     };
     handleCodeAuth(search);
   }, [history, search]);
-  return <div>{loading && <CircularProgress />}</div>;
+  return (
+    <Container maxWidth="xs" className={classes.root}>
+      <CircularProgress />
+    </Container>
+  );
 };
 
 export default AuthGoogle;

@@ -36,7 +36,8 @@
     "gen": "graphql-codegen --config codegen.yml",
     "docker:build": "docker-compose build",
     "docker:push": "docker-compose push",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "version": "auto-changelog -p && git add CHANGELOG.md"
   },
   "browserslist": {
     "production": [
@@ -59,6 +60,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
+    "auto-changelog": "^2.3.0",
     "eslint": "^7.27.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-typescript": "^12.3.1",
